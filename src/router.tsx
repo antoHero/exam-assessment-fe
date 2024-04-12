@@ -1,9 +1,10 @@
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-// import { ProtectedLayout } from './layouts/ProtectedLayout';
+import { AuthLayout } from './layouts/AuthLayout';
 import { ErrorPage } from './pages/ErrorPage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { Main } from './layouts/Main';
+import { Dashboard } from './pages/dashboard/Dashboard';
 // import { Main } from "./layouts/Main";
 
 const router = createBrowserRouter([
@@ -18,17 +19,17 @@ const router = createBrowserRouter([
             }
         ]
     },
-    // {
-    //     path: "/",
-    //     element: <ProtectedLayout />,
-    //     errorElement: <ErrorPage />,
-    //     children: [
-    //         {
-    //             path: "/dashboard",
-    //             element: <Dashboard />
-    //         },
-    //     ]
-    // }
+    {
+        path: "/",
+        element: <AuthLayout />,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                path: "/dashboard",
+                element: <Dashboard />
+            },
+        ]
+    }
 
 ]);
 
