@@ -4,7 +4,7 @@ import { userInfo } from "../helpers/helpers";
 class AuthService {
     async login(payload: object) {
         const { setToken, setUser } = userInfo();
-        const response = await axios.post('/login', payload);
+        const response = await axios.post('/auth/login', payload);
         if(response.status === 200) {
             setUser(response.data.user);
             setToken(response.data.token);
