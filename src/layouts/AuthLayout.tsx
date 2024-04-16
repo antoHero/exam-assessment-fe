@@ -1,14 +1,24 @@
 
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { AppNavbar } from "../components/protected/AppNavbar";
 import { AppSidebar } from "../components/protected/AppSidebar";
-
-const handleLogout = async() => {
-    console.log("logout");
-};
+import authService from "../services/authService";
 
 export const AuthLayout: React.FC = () => {
+    const user = localStorage.getItem("user");
+    if(!user || user === null || user === undefined) {
+        return <Navigate to="/"  />;
+    }
+
+    const handleLogout = async() => {
+        try {
+            await authService.logout();
+            <Navigate to="/" />
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
         <main className="relative h-screen overflow-hidden bg-gray-100 dark:bg-gray-800 rounded-2xl">
             <div className="flex items-start justify-between">

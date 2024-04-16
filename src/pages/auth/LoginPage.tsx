@@ -46,19 +46,17 @@ export const LoginPage = () => {
 
     const handleLogin = async () => {
         setIsLoading("loading")
-        console.log("handleLogin");
         try {
             const response = await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie');
 
             if(response.status === 204) {
-                const { data: { user } } = await authService.login({ email, password });
-                dispatch(storeUser(user))
+                const { data: { data } } = await authService.login({ email, password });
+                dispatch(storeUser(data))
             }
 
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 if (err.response?.status === 422) {
-                    // console.log("422 ",err.response?.data, err.response?.data?.message);
                     toast.error(err.response?.data?.message, {
                         position: "top-right",
                         transition: Flip,
@@ -76,15 +74,15 @@ export const LoginPage = () => {
                 <div className="w-full px-8">
 
                     <div className="relative -mt-16 block lg:hidden">
-                        <h1
-                            className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl"
-                        >
-                            <span>Manage &amp; track your expenses </span>
-                        </h1>
+                        <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl flex items-center space-x-6">
+                            <span>Assessment </span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                            </svg>
+                        </h2>
 
-                        <p className="mt-4 leading-relaxed text-gray-500">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-                            nam dolorum aliquam, quibusdam aperiam voluptatum.
+                        <p className="mt-4 leading-relaxed text-white/90">
+                            Create accessible exams for your institution.
                         </p>
                     </div>
                     <form onSubmit={handleSubmit(handleLogin)} className="mt-8 grid grid-cols-6 gap-6">
@@ -146,7 +144,7 @@ export const LoginPage = () => {
                                 className="flex items-center justify-center gap-3"
                                 fullWidth
                                 type="submit"
-                                placeholder={undefined}>
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                                 {isLoading === "loading" && (
                                     <LoaderSpinner />
                                 )}

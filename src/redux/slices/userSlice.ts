@@ -2,15 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 import axios from '../../axios';
 import authService from '../../services/authService';
-
-export interface User {
-    name: string;
-    email: string;
-    type: string;
-    email_verified_at: string;
-    created_at: string;
-    updated_at: string;
-}
+import { User } from '../../types';
 
 interface UserState {
     user: object;

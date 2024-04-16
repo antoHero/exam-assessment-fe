@@ -1,3 +1,5 @@
+import { User } from "../types";
+
 export const userInfo = () => {
 
     const getToken = () => {
@@ -12,7 +14,8 @@ export const userInfo = () => {
         localStorage.removeItem("token");
     }
 
-    const setUser = (user: string) => {
+    const setUser = (user: User) => {
+
         return localStorage.setItem("user", JSON.stringify(user));
     }
 
