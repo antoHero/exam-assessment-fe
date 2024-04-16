@@ -13,7 +13,8 @@ export const AuthLayout: React.FC = () => {
 
     const handleLogout = async() => {
         try {
-            return await authService.logout();
+            await authService.logout();
+            <Navigate to="/" />
         } catch (error) {
             console.log(error);
         }

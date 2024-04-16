@@ -16,6 +16,11 @@ class AssessmentService {
         const response = await axios.put(`/assessments/${id}`, payload);
         return response;
     }
+
+    async deleteAssessment(id: string) {
+        const response = await axios.delete(`/assessments/${id}`);
+        return response;
+    }
 }
 
 export default new AssessmentService();

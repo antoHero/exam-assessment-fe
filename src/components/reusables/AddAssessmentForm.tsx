@@ -114,7 +114,7 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
             handler={handleOpen}
             className="bg-transparent shadow-none overflow-auto"
             placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
-            <DialogBody className="h-[42rem] overflow-scroll" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+            <DialogBody className="h-[42rem]" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                 <Card className="mx-auto w-full" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     <form onSubmit={handleSubmit(handleAddAssessment)}>
                         <CardBody className="flex flex-col gap-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>

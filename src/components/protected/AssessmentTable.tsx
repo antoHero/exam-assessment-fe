@@ -4,6 +4,8 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { Assessment } from "../../types";
 import { useState } from "react";
 import { EditAssessmentForm } from "../reusables/EditAssessmentForm";
+import { DeleteAssessmentForm } from "../reusables/DeleteAssessmentDialog";
+
 const TABLE_HEAD = [
     "S/No",
     "Title",
@@ -19,15 +21,20 @@ interface ChildComponentProps {
 }
 export const AssessmentTable: React.FC<ChildComponentProps> = ({ assessments }) => {
     const [openEditDialog, setOpenEditDialog] = useState<boolean>(false);
+    const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
     const [assessment, setAssessment] = useState<Assessment>(Object)
 
     const handleEditDialogOpen = () => setOpenEditDialog(!open);
+    const handleDeleteDialogOpen = () => setOpenDeleteDialog(!open);
 
     const handleEditAssessment = (data: Assessment) => {
-        console.log("clicked")
         setAssessment(data);
-        console.log("data", data)
         setOpenEditDialog(true);
+    }
+
+    const handleDeleteAssessment = (data: Assessment) => {
+        setAssessment(data);
+        setOpenDeleteDialog(true);
     }
 
     return (
@@ -97,7 +104,7 @@ export const AssessmentTable: React.FC<ChildComponentProps> = ({ assessments }) 
                                         </Tooltip>
                                         <Typography  variant="small" color="blue-gray" className="font-medium cursor-pointer" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                                             <Tooltip content="Delete Assessment">
-                                                <IconButton variant="text" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                                                <IconButton variant="text" onClick={() => handleDeleteAssessment(assessment)} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                                                     <TrashIcon className="h-4 w-4 text-red-500" />
                                                 </IconButton>
                                             </Tooltip>
@@ -110,6 +117,7 @@ export const AssessmentTable: React.FC<ChildComponentProps> = ({ assessments }) 
                 </table>
             </Card>
             <EditAssessmentForm open={openEditDialog} handleOpen={handleEditDialogOpen} assessment={assessment} />
+            <DeleteAssessmentForm open={openDeleteDialog} handleOpen={handleDeleteDialogOpen} assessment={assessment} />
         </>
     )
 }
