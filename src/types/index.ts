@@ -1,8 +1,18 @@
+export interface Option {
+    id: string;
+    content: string;
+    isAnswer: boolean;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt: string;
+}
+
 export interface Question {
     id: string;
     question: string;
     type: string;
     marks: number;
+    options: Option[],
     createdAt: string;
     updatedAt: string;
     deletedAt: string;
@@ -40,17 +50,5 @@ export interface User {
 	username: string;
     profile: Profile;
 	createdAt: string;
-    updatedAt: string;
-}
-
-export interface Assessment {
-    id: string;
-    title: string;
-    instructions: string;
-    date: string;
-    duration: string;
-    expected_score: number;
-    deletedAt: string;
-    createdAt: string;
     updatedAt: string;
 }

@@ -5,6 +5,7 @@ import { Assessment } from "../../types";
 import { useState } from "react";
 import { EditAssessmentForm } from "../reusables/EditAssessmentForm";
 import { DeleteAssessmentForm } from "../reusables/DeleteAssessmentDialog";
+import { Link } from "react-router-dom";
 
 const TABLE_HEAD = [
     "S/No",
@@ -13,6 +14,7 @@ const TABLE_HEAD = [
     "Duration",
     "Expected Score",
     "Number of Questions",
+    "View",
     ""
 ];
 
@@ -95,6 +97,11 @@ export const AssessmentTable: React.FC<ChildComponentProps> = ({ assessments }) 
                                         <Typography variant="small" color="blue-gray" className="font-normal" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                                             {assessment.questions.length}
                                         </Typography>
+                                    </td>
+                                    <td className={classes}>
+                                        <Link to={`assessment/${assessment.id}`} className="font-normal" >
+                                            View
+                                        </Link>
                                     </td>
                                     <td className={`${classes} flex gap-2`}>
                                         <Tooltip content="Edit Assessment">
