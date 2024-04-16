@@ -3,7 +3,7 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { AppNavbar } from "../components/protected/AppNavbar";
 import { AppSidebar } from "../components/protected/AppSidebar";
-import authService from "../services/authService";
+import authService from "../services/authService.http";
 
 export const AuthLayout: React.FC = () => {
     const user = localStorage.getItem("user");

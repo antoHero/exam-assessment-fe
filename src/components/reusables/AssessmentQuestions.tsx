@@ -1,11 +1,16 @@
 import { Checkbox, List, ListItem, ListItemPrefix, Radio } from "@material-tailwind/react"
-import { Question } from "../../types"
+import { Option, Question } from "../../types"
 
 interface IQuestion {
     question: Question,
-    index: number
+    index: number,
+    onOptionChange: (question_id: string, selectedOptionId: string) => void;
 }
-export const AssessmentQuestions = ({ question, index }: IQuestion) => {
+
+export const AssessmentQuestions = ({ question, index, onOptionChange }: IQuestion) => {
+    const handleOptionChange = (questionId: string,  optionId: string) => {
+        onOptionChange(questionId, optionId);
+    }
     return (
         <div>
             <div key={index}>
@@ -16,7 +21,7 @@ export const AssessmentQuestions = ({ question, index }: IQuestion) => {
                 <List className="flex flex-row items-center gap-2 mt-4 space-y-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     {
                         question.options && question.options.length > 0 && (
-                            question.options.map((option, index) => {
+                            question.options.map((option: Option, index) => {
                                 return (
                                     <ListItem key={index} className="p-0" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 
@@ -28,9 +33,11 @@ export const AssessmentQuestions = ({ question, index }: IQuestion) => {
                                                         <Checkbox
                                                             id="horizontal-list-react"
                                                             ripple={false}
+                                                            value={option.id}
                                                             containerProps={{
                                                             className: "-ml-5",
                                                             }}
+                                                            onChange={() => handleOptionChange(question.id, option.id)}
                                                             className="hover:before:opacity-0"
                                                             label={option.content} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}
                                                         />
@@ -41,7 +48,6 @@ export const AssessmentQuestions = ({ question, index }: IQuestion) => {
                                                 className="flex w-full cursor-pointer items-center px-3 py-2">
                                                 <ListItemPrefix className="mr-3" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                                                     <Radio
-                                                        name="horizontal-radio"
                                                         id="horizontal-radio-react"
                                                         label={option.content}
                                                         ripple={false}
@@ -49,6 +55,9 @@ export const AssessmentQuestions = ({ question, index }: IQuestion) => {
                                                         containerProps={{
                                                         className: "p-0",
                                                         }}
+                                                        name={`question-${question.id}`}
+                                                        value={option.id}
+                                                        onChange={() => handleOptionChange(question.id, option.id)}
                                                         onPointerEnterCapture={undefined}
                                                         onPointerLeaveCapture={undefined}
                                                         crossOrigin={undefined}

@@ -14,10 +14,9 @@ class AuthService {
 
     async logout() {
         const response = await axios.post('/logout');
-        localStorage.clear();
-        window.location.href = '/auth/login'
         if(response.status === 200) {
-            window.location.href = '/auth/login'
+            localStorage.clear();
+            window.location.href = '/'
         }
     }
 }

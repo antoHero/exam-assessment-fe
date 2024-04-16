@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom"
 import axios from "axios";
 import { Button } from "@material-tailwind/react";
-import authService from "../../services/authService";
+import authService from "../../services/authService.http";
 import { PageTitle } from '../../components/reusables/PageTitle';
 import { useForm } from "react-hook-form";
 import { Flip, toast } from 'react-toastify';
@@ -144,7 +144,7 @@ export const LoginPage = () => {
                                 className="flex items-center justify-center gap-3"
                                 fullWidth
                                 type="submit"
-                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                                placeholder={undefined}>
                                 {isLoading === "loading" && (
                                     <LoaderSpinner />
                                 )}

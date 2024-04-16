@@ -20,7 +20,7 @@ import {
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useForm } from "react-hook-form";
-import assessmentService from "../../services/assessmentService";
+import assessmentService from "../../services/assessmentService.http";
 
 interface OpenForm {
 	open: boolean;

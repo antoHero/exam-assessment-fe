@@ -10,7 +10,7 @@ export interface Option {
 export interface Question {
     id: string;
     question: string;
-    type: string;
+    type: "single" | "multiple";
     marks: number;
     options: Option[],
     createdAt: string;

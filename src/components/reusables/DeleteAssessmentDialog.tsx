@@ -10,7 +10,7 @@ import {
     DialogFooter,
     DialogHeader
 } from "@material-tailwind/react";
-import assessmentService from "../../services/assessmentService";
+import assessmentService from "../../services/assessmentService.http";
 import { Assessment } from "../../types";
 
 interface OpenEditForm {

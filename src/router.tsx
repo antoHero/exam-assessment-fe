@@ -6,6 +6,7 @@ import { LoginPage } from './pages/auth/LoginPage';
 import { Main } from './layouts/Main';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { Assessment } from './pages/dashboard/Assessment';
+import { Question } from './pages/dashboard/Question';
 // import { Main } from "./layouts/Main";
 
 const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             {
                 path: "/dashboard/assessment/:assessmentId",
                 element: <Assessment />
+            },
+            {
+                path: "/questions/:questionId",
+                element: <Question />
             },
         ]
     }

@@ -6,9 +6,10 @@ import { Flip, toast } from 'react-toastify';
 import { Assessment, Profile, User } from "../../types";
 import { PageTitle } from "../../components/reusables/PageTitle";
 import { AssessmentTable } from "../../components/protected/AssessmentTable";
+import { StudentAssessmentTable } from "../../components/protected/StudentAssessmentTable";
 import { AddAssessmentForm } from "../../components/reusables/AddAssessmentForm";
 import { SplashPage } from "../../components/reusables/splash/SplashPage";
-import assessmentService from "../../services/assessmentService";
+import assessmentService from "../../services/assessmentService.http";
 import {
 	Button,
 } from "@material-tailwind/react";
@@ -16,7 +17,6 @@ import {
 const getProfile = () => {
     const json = localStorage.getItem('user') ?? '{}';
     return JSON.parse(json) as { profile?: User };
-    // replace number type above with whatever is needed
 };
 
 const profile = getProfile()
@@ -52,10 +52,27 @@ export const Dashboard: React.FC = () => {
 	}, [])
 
 	if(isLoading === "loading") {
-        return <SplashPage />;
-    }
+        return <p className="flex items-center justify-center"> Fetching assessments please wait...</p>;
+    } else {
+		if(storedProfile?.type === "admin") {
+			return (
+				<div className="px-4 lg:px-6">
 
-	if(storedProfile?.type === "admin") {
+					<div className="flex items-center justify-between">
+						<div>
+							<p>View Assessments!</p>
+						</div>
+						<div>
+							<Button placeholder={undefined} size="sm" onClick={handleOpen} ripple onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+								Add New
+							</Button>
+						</div>
+					</div>
+					<AssessmentTable assessments={assessments} />
+					<AddAssessmentForm open={open} handleOpen={handleOpen} />
+				</div>
+			);
+		}
 		return (
 			<div className="px-4 lg:px-6">
 
@@ -63,25 +80,9 @@ export const Dashboard: React.FC = () => {
 					<div>
 						<p>View Assessments!</p>
 					</div>
-					<div>
-						<Button placeholder={undefined} size="sm" onClick={handleOpen} ripple onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-							Add New
-						</Button>
-					</div>
 				</div>
-				<AssessmentTable assessments={assessments} />
-				<AddAssessmentForm open={open} handleOpen={handleOpen} />
+				<StudentAssessmentTable assessments={assessments} />
 			</div>
 		);
 	}
-
-	// if(user?.profile?.type == "admin") {
-	// 	return (
-	// 		<div className="px-4 lg:px-6">
-	// 			<p>View Assessments!</p>
-	// 			<AssessmentTable assessments={assessments} />
-	// 		</div>
-	// 	);
-	// }
-
 };
