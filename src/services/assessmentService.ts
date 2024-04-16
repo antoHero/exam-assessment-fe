@@ -11,6 +11,11 @@ class AssessmentService {
         const response = await axios.post('/assessments', payload);
         return response;
     }
+
+    async updateAssessment(payload: object, id: string) {
+        const response = await axios.put(`/assessments/${id}`, payload);
+        return response;
+    }
 }
 
 export default new AssessmentService();

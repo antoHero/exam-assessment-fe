@@ -1,6 +1,6 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import {
@@ -21,13 +21,15 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useForm } from "react-hook-form";
 import assessmentService from "../../services/assessmentService";
+import { Assessment } from "../../types";
 
-interface OpenForm {
+interface OpenEditForm {
 	open: boolean;
 	handleOpen: () => void;
+    assessment: Assessment
 }
 
-export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
+export const EditAssessmentForm = ({ open, handleOpen, assessment }: OpenEditForm) => {
     const {
 		register,
 		handleSubmit,
@@ -35,60 +37,37 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
 		clearErrors,
 	} = useForm();
 
-    const [title, setTitle] = useState<string>("");
-    const [instructions, setInstructions] = useState<string>("");
-    const [date, setDate] = useState<string>("");
-    const [duration, setDuration] = useState<string>("");
-    const [expected_score, setExpectedScore] = useState<string>("");
     const [isLoading, setIsLoading] = useState<string>("idle");
+    const [assessmentData, setAssessmentData] = useState<Assessment>({
+        ...assessment
+    });
 
-    const handleTitleChange = (e: any) => {
-        setTitle(e.target.value);
-        clearErrors("title");
+    useEffect(() => {
+        if(open && assessment) {
+            setAssessmentData(assessment)
+        } // Update assessmentData whenever data prop changes
+    }, [open, assessment]);
+
+    const handleChange = (e: any) => {
+        const { name, value } = e.target;
+        setAssessmentData((prev) => ({
+            ...prev,
+            [name]: value
+        }));
+        clearErrors(name);
     }
 
-    const handleInstructionsChange = (e: any) => {
-        setInstructions(e.target.value);
-        clearErrors("instructions");
-    }
-
-    const handleDateChange = (e: any) => {
-        setDate(e.target.value);
-        clearErrors("date");
-    }
-
-    const handleDurationChange = (e: any) => {
-        setDuration(e.target.value);
-        clearErrors("duration");
-    }
-
-    const handleExpectedScoreChange = (e: any) => {
-        setExpectedScore(e.target.value);
-        clearErrors("expected_score");
-    }
-
-    const handleAddAssessment = async () => {
+    const handleEditAssessment = async () => {
         try {
+            console.log(assessmentData)
 			setIsLoading("loading");
-			const payload = {
-				title,
-				instructions,
-				date,
-				duration,
-                expected_score,
-			};
-            const response = await assessmentService.createAssessment(payload);
-            if(response.status === 201) {
+            const response = await assessmentService.updateAssessment(assessmentData, assessmentData.id);
+            if(response.status === 200) {
                 const { data: { message } } = response;
                 handleOpen()
-                setTitle("");
-                setInstructions("");
-                setDate("");
-                setDuration("");
-                setExpectedScore("");
-                toast.success(message, {
-                    hideProgressBar: true,
-                });
+				toast.success(message, {
+					hideProgressBar: true,
+				});
                 window.location.reload();
             }
 		} catch (err) {
@@ -117,7 +96,7 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
         >
             <DialogBody className="h-[42rem] overflow-scroll">
                 <Card className="mx-auto w-full" placeholder={undefined}>
-                    <form onSubmit={handleSubmit(handleAddAssessment)}>
+                    <form onSubmit={handleSubmit(handleEditAssessment)}>
                         <CardBody className="flex flex-col gap-4" placeholder={undefined}>
                             <div className="flex justify-between items-center">
                                 <Typography
@@ -125,7 +104,7 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                                     color="blue-gray"
                                     placeholder={undefined}
                                 >
-                                    Add Assessment
+                                    Edit Assessment
                                 </Typography>
                                 <IconButton variant="outlined" placeholder={undefined}>
                                     <XMarkIcon className="h-6 w-6 cursor-pointer" onClick={handleOpen} />
@@ -134,30 +113,21 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                             </div>
 
                             <Typography
-                                className="mb-3 font-normal"
-                                variant="paragraph"
-                                color="gray"
-                                placeholder={undefined}
-                            >
-                                Fill all all required fields.
-                            </Typography>
-
-                            <Typography
                                 className="-mb-2"
                                 variant="h6"
                                 placeholder={undefined}
                             >
-                                Title
+                                Title { assessmentData.title }
                             </Typography>
                             <Input
                                 label="Title"
                                 size="lg"
                                 crossOrigin={undefined}
                                 {...register("title", {
-                                    required: "An amount is required",
+                                    required: "An title assessment is required",
                                 })}
-                                value={title}
-                                onChange={handleTitleChange}
+                                value={assessmentData.title || ''}
+                                onChange={handleChange}
                             />
                             {errors.title && errors.title.type === "required" && (
                                 <p className="text-red-700 font-normal text-sm">
@@ -179,8 +149,8 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                                 {...register("instructions", {
                                     required: "An instruction is required",
                                 })}
-                                value={instructions}
-                                onChange={handleInstructionsChange}
+                                value={assessmentData.instructions || ''}
+                                onChange={handleChange}
                             />
 
                             {errors.instructions && errors.instructions.type === "required" && (
@@ -204,8 +174,8 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                                 {...register("date", {
                                     required: "Scheduled Date is required",
                                 })}
-                                value={date}
-                                onChange={handleDateChange}
+                                value={assessmentData.date || ''}
+                                onChange={handleChange}
                             />
 
                             {errors.date && errors.date.type === "required" && (
@@ -224,13 +194,13 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                             <Input
                                 variant="outlined"
                                 label="Duration in hours"
-                                type="duration"
+                                type="text"
                                 placeholder={undefined}
                                 {...register("duration", {
                                     required: "Duration in hours is required",
                                 })}
-                                value={duration}
-                                onChange={handleDurationChange}
+                                value={assessmentData.duration || ''}
+                                onChange={handleChange}
                             />
 
                             {errors.duration && errors.duration.type === "required" && (
@@ -249,13 +219,13 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                             <Input
                                 variant="outlined"
                                 label="Expected score"
-                                type="expected_score"
+                                type="text"
                                 placeholder={undefined}
-                                {...register("duration", {
+                                {...register("expected_score", {
                                     required: "Expected score is required",
                                 })}
-                                value={expected_score}
-                                onChange={handleExpectedScoreChange}
+                                value={assessmentData.expected_score || 0}
+                                onChange={handleChange}
                             />
 
                             {errors.duration && errors.duration.type === "required" && (
@@ -272,7 +242,7 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                                 type="submit"
                                 disabled={isLoading == "loading"}
                             >
-                                {isLoading === "loading" ? "Submitting..." : "Add"}
+                                {isLoading === "loading" ? "Updating..." : "Update Assessment"}
                             </Button>
                         </CardFooter>
                     </form>

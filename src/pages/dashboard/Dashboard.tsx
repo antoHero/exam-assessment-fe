@@ -25,11 +25,12 @@ export const Dashboard: React.FC = () => {
     PageTitle('Dashboard');
 	const [assessments, setAssessments] = useState<Assessment[]>([])
 	const [isLoading, setIsLoading] = useState<string>("idle");
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState<boolean>(false);
 	const storedProfile = profile?.profile as Profile | undefined;
 
 
     const handleOpen = () => setOpen(!open);
+
 
 	useEffect(() => {
 		const getAllAssessments = async () => {
