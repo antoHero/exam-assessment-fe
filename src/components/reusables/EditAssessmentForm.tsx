@@ -92,21 +92,19 @@ export const EditAssessmentForm = ({ open, handleOpen, assessment }: OpenEditFor
             open={open}
             handler={handleOpen}
             className="bg-transparent shadow-none overflow-auto"
-            placeholder={undefined}
-        >
-            <DialogBody className="h-[42rem] overflow-scroll">
-                <Card className="mx-auto w-full" placeholder={undefined}>
+            placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+            <DialogBody className="h-[42rem] overflow-scroll" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                <Card className="mx-auto w-full" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     <form onSubmit={handleSubmit(handleEditAssessment)}>
-                        <CardBody className="flex flex-col gap-4" placeholder={undefined}>
+                        <CardBody className="flex flex-col gap-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                             <div className="flex justify-between items-center">
                                 <Typography
                                     variant="h4"
                                     color="blue-gray"
-                                    placeholder={undefined}
-                                >
+                                    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                                >
                                     Edit Assessment
                                 </Typography>
-                                <IconButton variant="outlined" placeholder={undefined}>
+                                <IconButton variant="outlined" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                                     <XMarkIcon className="h-6 w-6 cursor-pointer" onClick={handleOpen} />
                                 </IconButton>
 
@@ -115,20 +113,18 @@ export const EditAssessmentForm = ({ open, handleOpen, assessment }: OpenEditFor
                             <Typography
                                 className="-mb-2"
                                 variant="h6"
-                                placeholder={undefined}
-                            >
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 Title { assessmentData.title }
                             </Typography>
                             <Input
-                                label="Title"
+                                onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} label="Title"
                                 size="lg"
                                 crossOrigin={undefined}
                                 {...register("title", {
                                     required: "An title assessment is required",
                                 })}
                                 value={assessmentData.title || ''}
-                                onChange={handleChange}
-                            />
+                                onChange={handleChange}                            />
                             {errors.title && errors.title.type === "required" && (
                                 <p className="text-red-700 font-normal text-sm">
                                     Enter an title.
@@ -138,20 +134,18 @@ export const EditAssessmentForm = ({ open, handleOpen, assessment }: OpenEditFor
                             <Typography
                                 className="-mb-2"
                                 variant="h6"
-                                placeholder={undefined}
-                            >
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 Instructions
                             </Typography>
                             <Textarea
-                                variant="outlined"
+                                onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} variant="outlined"
                                 label="Instructions"
                                 placeholder={undefined}
                                 {...register("instructions", {
                                     required: "An instruction is required",
                                 })}
                                 value={assessmentData.instructions || ''}
-                                onChange={handleChange}
-                            />
+                                onChange={handleChange}                            />
 
                             {errors.instructions && errors.instructions.type === "required" && (
                                 <p className="text-red-700 font-normal text-sm">
@@ -162,12 +156,11 @@ export const EditAssessmentForm = ({ open, handleOpen, assessment }: OpenEditFor
                             <Typography
                                 className="-mb-2"
                                 variant="h6"
-                                placeholder={undefined}
-                            >
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 Scheduled Date
                             </Typography>
                             <Input
-                                variant="outlined"
+                                onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} variant="outlined"
                                 label="Scheduled Date"
                                 type="date"
                                 placeholder={undefined}
@@ -175,8 +168,7 @@ export const EditAssessmentForm = ({ open, handleOpen, assessment }: OpenEditFor
                                     required: "Scheduled Date is required",
                                 })}
                                 value={assessmentData.date || ''}
-                                onChange={handleChange}
-                            />
+                                onChange={handleChange}                            />
 
                             {errors.date && errors.date.type === "required" && (
                                 <p className="text-red-700 font-normal text-sm">
@@ -187,12 +179,11 @@ export const EditAssessmentForm = ({ open, handleOpen, assessment }: OpenEditFor
                             <Typography
                                 className="-mb-2"
                                 variant="h6"
-                                placeholder={undefined}
-                            >
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 Duration in hours
                             </Typography>
                             <Input
-                                variant="outlined"
+                                onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} variant="outlined"
                                 label="Duration in hours"
                                 type="text"
                                 placeholder={undefined}
@@ -200,8 +191,7 @@ export const EditAssessmentForm = ({ open, handleOpen, assessment }: OpenEditFor
                                     required: "Duration in hours is required",
                                 })}
                                 value={assessmentData.duration || ''}
-                                onChange={handleChange}
-                            />
+                                onChange={handleChange}                            />
 
                             {errors.duration && errors.duration.type === "required" && (
                                 <p className="text-red-700 font-normal text-sm">
@@ -212,12 +202,11 @@ export const EditAssessmentForm = ({ open, handleOpen, assessment }: OpenEditFor
                             <Typography
                                 className="-mb-2"
                                 variant="h6"
-                                placeholder={undefined}
-                            >
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 Expected score
                             </Typography>
                             <Input
-                                variant="outlined"
+                                onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} variant="outlined"
                                 label="Expected score"
                                 type="text"
                                 placeholder={undefined}
@@ -225,8 +214,7 @@ export const EditAssessmentForm = ({ open, handleOpen, assessment }: OpenEditFor
                                     required: "Expected score is required",
                                 })}
                                 value={assessmentData.expected_score || 0}
-                                onChange={handleChange}
-                            />
+                                onChange={handleChange}                            />
 
                             {errors.duration && errors.duration.type === "required" && (
                                 <p className="text-red-700 font-normal text-sm">
@@ -234,14 +222,13 @@ export const EditAssessmentForm = ({ open, handleOpen, assessment }: OpenEditFor
                                 </p>
                             )}
                         </CardBody>
-                        <CardFooter className="pt-0" placeholder={undefined}>
+                        <CardFooter className="pt-0" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                             <Button
                                 variant="gradient"
                                 fullWidth
                                 placeholder={undefined}
                                 type="submit"
-                                disabled={isLoading == "loading"}
-                            >
+                                disabled={isLoading == "loading"} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 {isLoading === "loading" ? "Updating..." : "Update Assessment"}
                             </Button>
                         </CardFooter>

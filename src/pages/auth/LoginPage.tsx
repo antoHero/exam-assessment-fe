@@ -144,7 +144,7 @@ export const LoginPage = () => {
                                 className="flex items-center justify-center gap-3"
                                 fullWidth
                                 type="submit"
-                                placeholder={undefined}>
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                                 {isLoading === "loading" && (
                                     <LoaderSpinner />
                                 )}

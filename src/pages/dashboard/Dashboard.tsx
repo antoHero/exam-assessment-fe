@@ -64,7 +64,7 @@ export const Dashboard: React.FC = () => {
 						<p>View Assessments!</p>
 					</div>
 					<div>
-						<Button placeholder={undefined} size="sm" onClick={handleOpen} ripple>
+						<Button placeholder={undefined} size="sm" onClick={handleOpen} ripple onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 							Add New
 						</Button>
 					</div>

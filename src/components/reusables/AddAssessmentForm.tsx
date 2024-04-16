@@ -113,21 +113,19 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
             open={open}
             handler={handleOpen}
             className="bg-transparent shadow-none overflow-auto"
-            placeholder={undefined}
-        >
-            <DialogBody className="h-[42rem] overflow-scroll">
-                <Card className="mx-auto w-full" placeholder={undefined}>
+            placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
+            <DialogBody className="h-[42rem] overflow-scroll" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                <Card className="mx-auto w-full" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     <form onSubmit={handleSubmit(handleAddAssessment)}>
-                        <CardBody className="flex flex-col gap-4" placeholder={undefined}>
+                        <CardBody className="flex flex-col gap-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                             <div className="flex justify-between items-center">
                                 <Typography
                                     variant="h4"
                                     color="blue-gray"
-                                    placeholder={undefined}
-                                >
+                                    placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                                >
                                     Add Assessment
                                 </Typography>
-                                <IconButton variant="outlined" placeholder={undefined}>
+                                <IconButton variant="outlined" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                                     <XMarkIcon className="h-6 w-6 cursor-pointer" onClick={handleOpen} />
                                 </IconButton>
 
@@ -137,28 +135,25 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                                 className="mb-3 font-normal"
                                 variant="paragraph"
                                 color="gray"
-                                placeholder={undefined}
-                            >
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 Fill all all required fields.
                             </Typography>
 
                             <Typography
                                 className="-mb-2"
                                 variant="h6"
-                                placeholder={undefined}
-                            >
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 Title
                             </Typography>
                             <Input
-                                label="Title"
+                                onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} label="Title"
                                 size="lg"
                                 crossOrigin={undefined}
                                 {...register("title", {
                                     required: "An amount is required",
                                 })}
                                 value={title}
-                                onChange={handleTitleChange}
-                            />
+                                onChange={handleTitleChange}                            />
                             {errors.title && errors.title.type === "required" && (
                                 <p className="text-red-700 font-normal text-sm">
                                     Enter an title.
@@ -168,20 +163,18 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                             <Typography
                                 className="-mb-2"
                                 variant="h6"
-                                placeholder={undefined}
-                            >
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 Instructions
                             </Typography>
                             <Textarea
-                                variant="outlined"
+                                onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} variant="outlined"
                                 label="Instructions"
                                 placeholder={undefined}
                                 {...register("instructions", {
                                     required: "An instruction is required",
                                 })}
                                 value={instructions}
-                                onChange={handleInstructionsChange}
-                            />
+                                onChange={handleInstructionsChange}                            />
 
                             {errors.instructions && errors.instructions.type === "required" && (
                                 <p className="text-red-700 font-normal text-sm">
@@ -192,12 +185,11 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                             <Typography
                                 className="-mb-2"
                                 variant="h6"
-                                placeholder={undefined}
-                            >
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 Scheduled Date
                             </Typography>
                             <Input
-                                variant="outlined"
+                                onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} variant="outlined"
                                 label="Scheduled Date"
                                 type="date"
                                 placeholder={undefined}
@@ -205,8 +197,7 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                                     required: "Scheduled Date is required",
                                 })}
                                 value={date}
-                                onChange={handleDateChange}
-                            />
+                                onChange={handleDateChange}                            />
 
                             {errors.date && errors.date.type === "required" && (
                                 <p className="text-red-700 font-normal text-sm">
@@ -217,12 +208,11 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                             <Typography
                                 className="-mb-2"
                                 variant="h6"
-                                placeholder={undefined}
-                            >
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 Duration in hours
                             </Typography>
                             <Input
-                                variant="outlined"
+                                onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} variant="outlined"
                                 label="Duration in hours"
                                 type="duration"
                                 placeholder={undefined}
@@ -230,8 +220,7 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                                     required: "Duration in hours is required",
                                 })}
                                 value={duration}
-                                onChange={handleDurationChange}
-                            />
+                                onChange={handleDurationChange}                            />
 
                             {errors.duration && errors.duration.type === "required" && (
                                 <p className="text-red-700 font-normal text-sm">
@@ -242,12 +231,11 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                             <Typography
                                 className="-mb-2"
                                 variant="h6"
-                                placeholder={undefined}
-                            >
+                                placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 Expected score
                             </Typography>
                             <Input
-                                variant="outlined"
+                                onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} variant="outlined"
                                 label="Expected score"
                                 type="expected_score"
                                 placeholder={undefined}
@@ -255,8 +243,7 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                                     required: "Expected score is required",
                                 })}
                                 value={expected_score}
-                                onChange={handleExpectedScoreChange}
-                            />
+                                onChange={handleExpectedScoreChange}                            />
 
                             {errors.duration && errors.duration.type === "required" && (
                                 <p className="text-red-700 font-normal text-sm">
@@ -264,14 +251,13 @@ export const AddAssessmentForm = ({ open, handleOpen }: OpenForm) => {
                                 </p>
                             )}
                         </CardBody>
-                        <CardFooter className="pt-0" placeholder={undefined}>
+                        <CardFooter className="pt-0" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                             <Button
                                 variant="gradient"
                                 fullWidth
                                 placeholder={undefined}
                                 type="submit"
-                                disabled={isLoading == "loading"}
-                            >
+                                disabled={isLoading == "loading"} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                                 {isLoading === "loading" ? "Submitting..." : "Add"}
                             </Button>
                         </CardFooter>

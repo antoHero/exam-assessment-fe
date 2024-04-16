@@ -65,19 +65,19 @@ function ProfileMenu() {
 			<Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
 				<MenuHandler>
 					<Button
-                        variant="text"
-                        size="md"
-                        fullWidth={false}
-                        ripple={true}
-                        placeholder={undefined}
-                        color="blue-gray"
-                        className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto">
+						variant="text"
+						size="md"
+						fullWidth={false}
+						ripple={true}
+						placeholder={undefined}
+						color="blue-gray"
+						className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 						<Avatar
 							variant="circular"
 							size="sm"
 							alt="tania andrew"
 							className="border border-gray-900 p-0.5"
-							src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" placeholder={undefined}						/>
+							src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}						/>
 						<ChevronDownIcon
 							strokeWidth={2.5}
 							className={`h-3 w-3 transition-transform ${
@@ -86,7 +86,7 @@ function ProfileMenu() {
 						/>
 					</Button>
 				</MenuHandler>
-				<MenuList className="p-1" placeholder={undefined}>
+				<MenuList className="p-1" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 					{profileMenuItems.map(({ label, icon }, key) => {
 						const isLastItem = key === profileMenuItems.length - 1;
 						return (
@@ -94,8 +94,8 @@ function ProfileMenu() {
 								key={label}
 								onClick={closeMenu}
 								className={`flex items-center gap-2 rounded ${isLastItem
-										? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-										: ""}`} placeholder={undefined}>
+									? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+									: ""}`} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 								{React.createElement(icon, {
 									className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
 									strokeWidth: 2,
@@ -104,7 +104,7 @@ function ProfileMenu() {
 									as="span"
 									variant="small"
 									className="font-normal"
-									color={isLastItem ? "red" : "inherit"} placeholder={undefined}>
+									color={isLastItem ? "red" : "inherit"} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 									{label}
 								</Typography>
 							</MenuItem>
@@ -136,12 +136,12 @@ export const AppNavbar = ({ handleLogout }: openSidebar) => {
 
 	return (
 		<div className="z-40 overflow-scroll">
-			<Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4" placeholder={undefined}>
+			<Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 				<div className="flex items-center justify-between text-blue-gray-900">
 					<Typography
 						as="a"
 						href="#"
-						className="mr-4 cursor-pointer py-1.5 font-medium" placeholder={undefined}>
+						className="mr-4 cursor-pointer py-1.5 font-medium" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 						Quick Assessment
 					</Typography>
 					<div className="flex items-center gap-4">
@@ -153,7 +153,7 @@ export const AppNavbar = ({ handleLogout }: openSidebar) => {
 							variant="text"
 							className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
 							ripple={false}
-							onClick={openDrawer} placeholder={undefined}>
+							onClick={openDrawer} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 							{open ? (
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -187,16 +187,16 @@ export const AppNavbar = ({ handleLogout }: openSidebar) => {
 				</div>
 
 			</Navbar>
-			<Drawer open={open} onClose={closeDrawer} className="p-4" placeholder={undefined}>
-				<List placeholder={undefined}>
-					<ListItem placeholder={undefined}>
-						<ListItemPrefix placeholder={undefined}>
+			<Drawer open={open} onClose={closeDrawer} className="p-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+				<List placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+					<ListItem placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+						<ListItemPrefix placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 							<InboxIcon className="h-5 w-5" />
 						</ListItemPrefix>
 						Dashboard
 					</ListItem>
-					<ListItem placeholder={undefined}>
-						<ListItemPrefix placeholder={undefined}>
+					<ListItem placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+						<ListItemPrefix placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
@@ -213,20 +213,20 @@ export const AppNavbar = ({ handleLogout }: openSidebar) => {
 						</ListItemPrefix>
 						Expenses
 					</ListItem>
-					<ListItem placeholder={undefined}>
-						<ListItemPrefix placeholder={undefined}>
+					<ListItem placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+						<ListItemPrefix placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 							<UserCircleIcon className="h-5 w-5" />
 						</ListItemPrefix>
 						Profile
 					</ListItem>
-					<ListItem placeholder={undefined}>
-						<ListItemPrefix placeholder={undefined}>
+					<ListItem placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+						<ListItemPrefix placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 							<Cog6ToothIcon className="h-5 w-5" />
 						</ListItemPrefix>
 						Settings
 					</ListItem>
-					<ListItem onClick={() => handleLogout} placeholder={undefined}>
-						<ListItemPrefix placeholder={undefined}>
+					<ListItem onClick={() => handleLogout} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+						<ListItemPrefix placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 							<PowerIcon className="h-5 w-5" />
 						</ListItemPrefix>
 						Log Out
