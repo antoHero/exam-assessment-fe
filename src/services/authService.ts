@@ -6,10 +6,9 @@ class AuthService {
         const { setToken, setUser } = userInfo();
         const response = await axios.post('/auth/login', payload);
         if(response.status === 200) {
-            setUser(response.data.user);
+            setUser(response.data.data);
             setToken(response.data.token);
         }
-        console.log(response);
         return response;
     }
 
