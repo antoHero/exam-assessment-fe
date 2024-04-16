@@ -6,8 +6,12 @@ class AssessmentService {
         return response;
     }
 
+    async getAssessment(id: string | undefined){
+        const response = await axios.get(`/assessments/${id}`);
+        return response;
+    }
+
     async createAssessment(payload: object) {
-        console.log("in here")
         const response = await axios.post('/assessments', payload);
         return response;
     }
