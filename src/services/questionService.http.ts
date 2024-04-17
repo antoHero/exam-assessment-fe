@@ -21,6 +21,11 @@ class QuestionService {
         return response;
     }
 
+    async addOptionForQuestion(id: string, payload: object) {
+        const response = await axios.post(`/options/${id}`, payload);
+        return response;
+    }
+
     async updateOptionForQuestion(id: string, payload: object) {
         const response = await axios.put(`/options/option/${id}`, payload);
         return response;

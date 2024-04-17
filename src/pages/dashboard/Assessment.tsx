@@ -9,6 +9,7 @@ import { Button, Card, CardBody } from "@material-tailwind/react";
 import { AdminAssessmentQuestion } from "../../components/reusables/AdminAssessmentQuestion";
 import { AssessmentQuestions } from "../../components/reusables/AssessmentQuestions";
 import questionServiceHttp from "../../services/questionService.http";
+import { AddQuestionDialog } from "../../components/reusables/AddQuetionDialog";
 
 
 
@@ -25,7 +26,15 @@ export const Assessment = () => {
     const [isLoading, setIsLoading] = useState<string>("idle");
     const [isSubmitting, setIsSubmitting] = useState<string>("idle");
     const [selectedOptions, setSelectedOptions] = useState<{ question_id: string; selected_options: string[] }[]>([]);
+    const [openAddQuestionDialog, setOpenAddQuestionDialog] = useState<boolean>(false);
+    const [assessmentDialogData, setAssessmentDialogData] = useState<AssessmentInterface>(Object);
 
+    const handleAddQuestionDialog = () => setOpenAddQuestionDialog(!open);
+
+    const handleAddQuestionDialogOpen = (data: AssessmentInterface) => {
+        setAssessmentDialogData(data);
+        setOpenAddQuestionDialog(true)
+    }
     const handleOptionChange = (questionId: string, selectedOptionId: string) => {
         setSelectedOptions(prevSelectedOptions => {
             // const question = assessment.questions.find(q => q.id === questionId);
@@ -92,11 +101,15 @@ export const Assessment = () => {
             setIsSubmitting("submitting")
             for (let i = 0; i < selectedOptions.length; i++) {
                 const { question_id, selected_options } = selectedOptions[i];
-                const { data: { message } } = await questionServiceHttp.answerQuestion(question_id, {selected_options})
-                toast.success(message, {
-                    position: "top-right",
-                    transition: Flip,
-                })
+                const { status, data: { message } } = await questionServiceHttp.answerQuestion(question_id, {selected_options})
+                if(status === 201 || status === 200) {
+                    toast.success(message, {
+                        position: "top-right",
+                        transition: Flip,
+                    })
+                    window.location.reload();
+                }
+
             }
         } catch (err) {
             if (axios.isAxiosError(err)) {
@@ -118,6 +131,17 @@ export const Assessment = () => {
     } else {
         return (
             <div className="px-4 lg:px-6">
+                {storedProfile && storedProfile.type === 'admin'
+                    ?
+                        <Button
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
+                            onClick={() => handleAddQuestionDialogOpen(assessment)}
+                        >Add Question</Button>
+                    : ""
+                }
+
                 <Card className="h-full w-full overflow-scroll mt-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     <CardBody className="p-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                         <div className="flex items-center justify-between">
@@ -142,7 +166,7 @@ export const Assessment = () => {
                             <h1 className="font-semibold text-gray-700 text-2xl capitalize">Questions</h1>
 
                             <div className="mt-4">
-                                <form onSubmit={handleSubmit}>
+                                <form>
                                 {
                                     assessment.questions && assessment.questions.length > 0 && (
                                         assessment.questions.map((question, index) => {
@@ -154,12 +178,16 @@ export const Assessment = () => {
                                         })
                                     )
                                 }
-                                    <Button disabled={isSubmitting === 'submitting'} type="submit" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>{isSubmitting === 'submitting' ? 'Submitting...' : 'Submit'}</Button>
+                                    {storedProfile && storedProfile.type === 'admin'
+                                        ? ""
+                                        : <Button onClick={handleSubmit} disabled={isSubmitting === 'submitting'} type="submit" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>{isSubmitting === 'submitting' ? 'Submitting...' : 'Submit'}</Button>
+                                    }
                                 </form>
                             </div>
                         </div>
                     </CardBody>
                 </Card>
+                <AddQuestionDialog open={openAddQuestionDialog} handleOpen={handleAddQuestionDialog} assessment={assessmentDialogData} />
             </div>
 
         )
