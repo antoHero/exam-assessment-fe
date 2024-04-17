@@ -3,32 +3,33 @@ import { useEffect, useState } from "react"
 import axios from "axios";
 import { toast, Flip } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import { Question as IQuestion, Option } from "../../types"
 import questionServiceHttp from "../../services/questionService.http";
-import { Button, Card, Input } from "@material-tailwind/react";
+import { Card } from "@material-tailwind/react";
 import { UpdateOptionDialog } from "../../components/reusables/UpdateOptionDialog";
+import { EditQuestionForm } from "../../components/reusables/EditQuestionForm";
 
 
 export const Question = () => {
     const [question, setQuestion] = useState<IQuestion>(Object);
+    const [questionDialogData, setQuestionDialogData] = useState<IQuestion>(Object);
     const [isLoading, setIsLoading] = useState<string>("idle");
     const [openEditDialog, setOpenEditDialog] = useState<boolean>(false);
+    const [openEditQuestionDialog, setOpenEditQuestionDialog] = useState<boolean>(false);
     const [option, setOptionData] = useState<Option>(Object);
     const { questionId } = useParams();
 
-    const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		clearErrors,
-	} = useForm();
-
     const handleEditDialogOpen = () => setOpenEditDialog(!open);
+
+    const handleEditQuestionDialogOpen = () => setOpenEditQuestionDialog(!open);
+
+    const handleQuestionEditOpen = (data: IQuestion) => {
+        setQuestionDialogData(data);
+        setOpenEditQuestionDialog(true)
+    }
 
     const handleEditOption = (data: Option) => {
         setOptionData(data)
-        console.log(data)
         setOpenEditDialog(true)
     }
 
@@ -55,22 +56,6 @@ export const Question = () => {
         getQuestion()
     }, [questionId])
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        setQuestion((prev) => ({
-            ...prev,
-            [name]: value
-        }));
-        clearErrors(name);
-    }
-
-
-
-    const handleEditQuestion = async () => {
-        console.log("utrt",question)
-    }
-
     if(isLoading === "loading") {
         return <p className="flex items-center justify-center"> Fetching question please wait...</p>;
     } else  {
@@ -78,59 +63,10 @@ export const Question = () => {
             <div className="px-4 lg:px-6">
                 <Card className="h-full w-full overflow-scroll mt-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     <div className="p-4">
-                        <p className="text-2xl text-gray-700">View Question</p>
-                        {question.question}
-                        <form onSubmit={handleSubmit(handleEditQuestion)} className="mt-4">
-                            <Input
-                                onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} label="Question"
-                                size="lg"
-                                crossOrigin={undefined}
-                                {...register("title")}
-                                value={question.question || ''}
-                                onChange={handleChange}
-                            />
+                        <p className="text-md text-black">Click question to update</p>
 
-                            {errors.question && errors.question.type === "required" && (
-                                <p className="text-red-700 font-normal text-sm">
-                                    This field cannot be empty
-                                </p>
-                            )}
+                        <h1 className="text-2xl text-black cursor-pointer" onClick={() => handleQuestionEditOpen(question)}>{question.question}</h1>
 
-                            <div className="flex items-start justify-start gap-4 mt-4">
-                                <div>
-                                    <Input
-                                        onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} size="lg"
-                                        crossOrigin={undefined}
-                                        {...register("title")}
-                                        value={question.type || ""}
-                                        onChange={handleChange}
-                                        label="Question Type"                                    />
-
-                                    {errors.question && errors.question.type === "required" && (
-                                        <p className="text-red-700 font-normal text-sm">
-                                            This field cannot be empty
-                                        </p>
-                                    )}
-                                </div>
-                                <div>
-                                    <Input
-                                        onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} size="lg"
-                                        crossOrigin={undefined}
-                                        {...register("title")}
-                                        value={question.marks || 0}
-                                        onChange={handleChange}
-                                        label="Marks"                                    />
-
-                                    {errors.question && errors.question.type === "required" && (
-                                        <p className="text-red-700 font-normal text-sm">
-                                            This field cannot be empty
-                                        </p>
-                                    )}
-                                </div>
-                                <Button type="submit" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Update</Button>
-                            </div>
-
-                        </form>
 
                     </div>
 
@@ -149,6 +85,7 @@ export const Question = () => {
                         }
                     </div>
                 </Card>
+                <EditQuestionForm open={openEditQuestionDialog} handleOpen={handleEditQuestionDialogOpen} question={questionDialogData} />
                 <UpdateOptionDialog open={openEditDialog} handleOpen={handleEditDialogOpen} option={option} questionType={question.type} />
             </div>
         )
