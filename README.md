@@ -1,30 +1,77 @@
-# React + TypeScript + Vite
+# Exam Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Summary
 
-Currently, two official plugins are available:
+This React project comsumes APIs from this  Laravel [repository](https://github.com/antoHero/exam-assessment-api). Clone the repository before you proceed.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Features of the this project
+- Basic authentication
+- Authenticated admins can create exam, questions, and add options.
+- Authenticated non-admins can view assessments, take exams, and view their scores for each assessment.
+- Error handling for form validation, successful responses, and server errors
+- Service classes to handle all http requests
+- Axios configuration with interceptors so auth token wont need to be passed on subsequent requests
 
-## Expanding the ESLint configuration
+## This project was built with
+- TypeScript
+- React
+- Tailwind CSS
+- Lavarel Exam API Endpoint described above
+- ESLint
+- NPM
+- Redux
+- Toastify
+- Axios
+- React Hook Form
+- Vite
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Prerequisites
+- Web browser (Chrome recommended)
+- Node.js installed
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
+Clone the project to your local machine. In the project directory, you can run:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+> `npm install` to install dependencies
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+> `npm run dev` to serve your project on localhost:5173
+
+## Screenshots
+
+Login screen
+
+![screenshot](./src/assets/img/login.png)
+
+User completed assessment
+
+![screenshot](./src/assets/img/user_exam.png)
+
+View all exams admin
+
+![screenshot](./src/assets/img/admin_view_exams.png)
+
+Create an exam dialog
+
+![screenshot](./src/assets/img/create_exam.png)
+
+Edit an exam dialog
+
+![screenshot](./src/assets/img/edit_exam.png)
+
+Delete an exam dialog warning
+
+![screenshot](./src/assets/img/delete_exam.png)
+
+View single exam
+
+![screenshot](./src/assets/img/admin_exam.png)
+
+View single exam question
+
+![screenshot](./src/assets/img/admin_question.png)
+
+👨‍💻 **Akoke Victor Anto**
+
+- Github: [antoHero](https://github.com/antoHero)
+- Twitter: [@iam_veecktor](https://twitter.com/Iam_veecktor)
+- Linkedin: [Akoke Victor Anto](https://www.linkedin.com/in/akoke-anto/)
