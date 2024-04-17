@@ -4,13 +4,17 @@ import axios from "axios";
 import { toast, Flip } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Question as IQuestion } from "../../types"
+import { Question as IQuestion, Option } from "../../types"
 import questionServiceHttp from "../../services/questionService.http";
 import { Button, Card, Input } from "@material-tailwind/react";
+import { UpdateOptionDialog } from "../../components/reusables/UpdateOptionDialog";
+
 
 export const Question = () => {
     const [question, setQuestion] = useState<IQuestion>(Object);
     const [isLoading, setIsLoading] = useState<string>("idle");
+    const [openEditDialog, setOpenEditDialog] = useState<boolean>(false);
+    const [option, setOptionData] = useState<Option>(Object);
     const { questionId } = useParams();
 
     const {
@@ -20,6 +24,14 @@ export const Question = () => {
 		clearErrors,
 	} = useForm();
 
+    const handleEditDialogOpen = () => setOpenEditDialog(!open);
+
+    const handleEditOption = (data: Option) => {
+        setOptionData(data)
+        console.log(data)
+        setOpenEditDialog(true)
+    }
+
     useEffect(() => {
         const getQuestion = async () => {
             try {
@@ -27,7 +39,6 @@ export const Question = () => {
                 const response = await questionServiceHttp.getQuestion(questionId)
                 const data: IQuestion = response.data.data
                 setQuestion({ ...question, question: data.question });
-                console.log("data returned", data)
                 setQuestion(data);
             } catch (err) {
                 if (axios.isAxiosError(err)) {
@@ -44,6 +55,7 @@ export const Question = () => {
         getQuestion()
     }, [questionId])
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setQuestion((prev) => ({
@@ -64,7 +76,7 @@ export const Question = () => {
     } else  {
         return (
             <div className="px-4 lg:px-6">
-                <Card className="h-full w-full overflow-scroll mt-4">
+                <Card className="h-full w-full overflow-scroll mt-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     <div className="p-4">
                         <p className="text-2xl text-gray-700">View Question</p>
                         {question.question}
@@ -74,7 +86,7 @@ export const Question = () => {
                                 size="lg"
                                 crossOrigin={undefined}
                                 {...register("title")}
-                                value={question.question}
+                                value={question.question || ''}
                                 onChange={handleChange}
                             />
 
@@ -84,16 +96,15 @@ export const Question = () => {
                                 </p>
                             )}
 
-                            <div className="flex items-start justify-start gap-4">
+                            <div className="flex items-start justify-start gap-4 mt-4">
                                 <div>
                                     <Input
-                                        size="lg"
+                                        onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} size="lg"
                                         crossOrigin={undefined}
                                         {...register("title")}
                                         value={question.type || ""}
                                         onChange={handleChange}
-                                        className="mt-4"
-                                    />
+                                        label="Question Type"                                    />
 
                                     {errors.question && errors.question.type === "required" && (
                                         <p className="text-red-700 font-normal text-sm">
@@ -103,13 +114,12 @@ export const Question = () => {
                                 </div>
                                 <div>
                                     <Input
-                                        size="lg"
+                                        onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} size="lg"
                                         crossOrigin={undefined}
                                         {...register("title")}
                                         value={question.marks || 0}
                                         onChange={handleChange}
-                                        className="mt-4"
-                                    />
+                                        label="Marks"                                    />
 
                                     {errors.question && errors.question.type === "required" && (
                                         <p className="text-red-700 font-normal text-sm">
@@ -117,14 +127,29 @@ export const Question = () => {
                                         </p>
                                     )}
                                 </div>
-                                <Button type="submit" className="mt-4">Update</Button>
+                                <Button type="submit" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Update</Button>
                             </div>
 
                         </form>
 
                     </div>
-                </Card>
 
+                    <h1 className="px-4 py-4 font-semibold text-black">Click on an option to modify</h1>
+                    <div className="flex flex-col space-y-4 p-4">
+                        {
+                            question.options && question.options.length > 0 && (
+                                question.options.map((option, optionIndex) => {
+                                    return (
+                                        <div onClick={() => handleEditOption(option)} className="hover:bg-gray-100 hover:p-4 hover:rounded-md cursor-pointer transition ease-in-out duration-500" key={optionIndex}>
+                                            <p><span>{optionIndex + 1}</span> {option.content}</p>
+                                        </div>
+                                    )
+                                })
+                            )
+                        }
+                    </div>
+                </Card>
+                <UpdateOptionDialog open={openEditDialog} handleOpen={handleEditDialogOpen} option={option} questionType={question.type} />
             </div>
         )
     }

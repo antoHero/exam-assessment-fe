@@ -21,6 +21,11 @@ class QuestionService {
         return response;
     }
 
+    async updateOptionForQuestion(id: string, payload: object) {
+        const response = await axios.put(`/options/option/${id}`, payload);
+        return response;
+    }
+
     async deleteQuestion(id: string) {
         const response = await axios.delete(`/questions/question/${id}`);
         return response;

@@ -1,7 +1,7 @@
 export interface Option {
     id: string;
     content: string;
-    isAnswer: boolean;
+    isAnswer: boolean | string | number | undefined;
     createdAt: string;
     updatedAt: string;
     deletedAt: string;

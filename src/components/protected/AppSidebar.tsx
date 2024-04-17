@@ -36,30 +36,6 @@ export const AppSidebar = ({ handleLogout }: openSidebar) => {
 						</ListItemPrefix>
 						Dashboard
 					</NavLink>
-					<NavLink to="/expenses" className="flex flex-row ml-3 mb-2 my-2">
-						<ListItemPrefix  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								strokeWidth={1.5}
-								stroke="currentColor"
-								className="w-5 h-5">
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
-								/>
-							</svg>
-						</ListItemPrefix>
-						Questions
-					</NavLink>
-					<ListItem  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-						<ListItemPrefix  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-							<UserCircleIcon className="h-5 w-5" />
-						</ListItemPrefix>
-						Assessments
-					</ListItem>
                     <ListItem onClick={handleLogout} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 						<ListItemPrefix  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 							<PowerIcon className="h-5 w-5" />
@@ -81,30 +57,6 @@ export const AppSidebar = ({ handleLogout }: openSidebar) => {
 							<InboxIcon className="h-5 w-5" />
 						</ListItemPrefix>
 						Dashboard
-					</ListItem>
-					<ListItem  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-						<ListItemPrefix  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								strokeWidth={1.5}
-								stroke="currentColor"
-								className="w-5 h-5">
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
-								/>
-							</svg>
-						</ListItemPrefix>
-						Questions
-					</ListItem>
-					<ListItem  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-						<ListItemPrefix  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-							<UserCircleIcon className="h-5 w-5" />
-						</ListItemPrefix>
-						Assessments
 					</ListItem>
 					<ListItem onClick={handleLogout} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
 						<ListItemPrefix  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>

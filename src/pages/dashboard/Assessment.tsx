@@ -21,6 +21,7 @@ const profile = getProfile()
 
 export const Assessment = () => {
     const [assessment, setAssessment] = useState<AssessmentInterface>(Object);
+    const [result, setResult] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<string>("idle");
     const [isSubmitting, setIsSubmitting] = useState<string>("idle");
     const [selectedOptions, setSelectedOptions] = useState<{ question_id: string; selected_options: string[] }[]>([]);
@@ -48,7 +49,8 @@ export const Assessment = () => {
     const storedProfile = profile?.profile as Profile | undefined;
     useEffect(() => {
         getAssessment()
-    }, [])
+        getUserAssessmentResult()
+    }, [assessmentId])
 
     const getAssessment = async () => {
         try {
@@ -58,6 +60,23 @@ export const Assessment = () => {
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 if (err.response?.status === 422) {
+                    toast.error(err.response?.data?.message, {
+                        position: "top-right",
+                        transition: Flip,
+                    });
+                }
+            }
+        } finally { setIsLoading("idle") }
+    }
+
+    const getUserAssessmentResult = async () => {
+        try {
+            setIsLoading("loading");
+            const { data: { data } } = await assessmentService.getUesrsAssessmentResult(assessmentId)
+            setResult(data);
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                if (err.response?.status === 500 || err.response?.status === 400) {
                     toast.error(err.response?.data?.message, {
                         position: "top-right",
                         transition: Flip,
@@ -101,7 +120,15 @@ export const Assessment = () => {
             <div className="px-4 lg:px-6">
                 <Card className="h-full w-full overflow-scroll mt-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     <CardBody className="p-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                        <div className="flex items-center justify-between">
                         <p className="font-semibold text-gray-700 text-2xl capitalize">{ assessment.title }</p>
+                        {storedProfile && storedProfile.type === 'admin' ? '' : <p className="font-semibold text-red-700 text-xl capitalize">
+                            { result ? <span>score: { result } / { assessment.expected_score }</span> : 0}
+
+                        </p>
+                        }
+
+                        </div>
                         <p className="mt-4 font-bold">Instructions</p>
                         <span className="text-base mt-4">{ assessment.instructions }</span>
 
