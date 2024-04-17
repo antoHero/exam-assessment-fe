@@ -5,9 +5,10 @@ import { toast, Flip } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { Question as IQuestion, Option } from "../../types"
 import questionServiceHttp from "../../services/questionService.http";
-import { Card } from "@material-tailwind/react";
+import { Button, Card } from "@material-tailwind/react";
 import { UpdateOptionDialog } from "../../components/reusables/UpdateOptionDialog";
 import { EditQuestionForm } from "../../components/reusables/EditQuestionForm";
+import { AddOptionDialog } from "../../components/reusables/AddOptionDialog";
 
 
 export const Question = () => {
@@ -15,6 +16,7 @@ export const Question = () => {
     const [questionDialogData, setQuestionDialogData] = useState<IQuestion>(Object);
     const [isLoading, setIsLoading] = useState<string>("idle");
     const [openEditDialog, setOpenEditDialog] = useState<boolean>(false);
+    const [addOptionDialog, setAddOptionDialog] = useState<boolean>(false);
     const [openEditQuestionDialog, setOpenEditQuestionDialog] = useState<boolean>(false);
     const [option, setOptionData] = useState<Option>(Object);
     const { questionId } = useParams();
@@ -22,6 +24,8 @@ export const Question = () => {
     const handleEditDialogOpen = () => setOpenEditDialog(!open);
 
     const handleEditQuestionDialogOpen = () => setOpenEditQuestionDialog(!open);
+
+    const handleAddOptionDialogOpen = () => setAddOptionDialog(!open);
 
     const handleQuestionEditOpen = (data: IQuestion) => {
         setQuestionDialogData(data);
@@ -31,6 +35,11 @@ export const Question = () => {
     const handleEditOption = (data: Option) => {
         setOptionData(data)
         setOpenEditDialog(true)
+    }
+
+    const handleAddOptionDialog = (data: IQuestion) => {
+        setQuestionDialogData(data);
+        setAddOptionDialog(true)
     }
 
     useEffect(() => {
@@ -61,6 +70,12 @@ export const Question = () => {
     } else  {
         return (
             <div className="px-4 lg:px-6">
+                <Button
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    onClick={() => handleAddOptionDialog(question)}
+                >Add Option</Button>
                 <Card className="h-full w-full overflow-scroll mt-4" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     <div className="p-4">
                         <p className="text-md text-black">Click question to update</p>
@@ -85,6 +100,7 @@ export const Question = () => {
                         }
                     </div>
                 </Card>
+                <AddOptionDialog open={addOptionDialog} handleOpen={handleAddOptionDialogOpen} question={questionDialogData} />
                 <EditQuestionForm open={openEditQuestionDialog} handleOpen={handleEditQuestionDialogOpen} question={questionDialogData} />
                 <UpdateOptionDialog open={openEditDialog} handleOpen={handleEditDialogOpen} option={option} questionType={question.type} />
             </div>
